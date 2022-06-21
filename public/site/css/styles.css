@@ -7126,6 +7126,7 @@ body .capsule-tooltip .capsule-tooltip-close:focus-visible {
 .header .top .logo img {
   display: block;
   height: 45px;
+  width: 175px;
 }
 @media screen and (max-width: 1124px) {
   .header .top .menu {

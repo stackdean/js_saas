@@ -23,6 +23,7 @@ use Illuminate\Support\Facades\Auth;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/', [HomeController::class, 'frontpage'])->name('homepage')->middleware(['auth', 'xss']);
 
 Route::get('/test-mail', [SettingsController::class, 'testMail'])->name('test.mail')->middleware(['auth','xss']);
 Auth::routes();
@@ -38,7 +39,7 @@ Route::group(['middleware' => ['auth', 'xss']], function () {
 Route::resource('forms', '\App\Http\Controllers\FormController')->middleware(['auth','xss']);
 
 
-Route::get('/', [HomeController::class, 'index'])->name('home')->middleware(['auth', 'xss']);
+Route::get('/admin', [HomeController::class, 'index'])->name('home')->middleware(['auth', 'xss']);
 Route::post('/chart', [HomeController::class, 'formchart'])->name('get.chart.data')->middleware(['auth', 'xss',]);
 
 
