@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Form;
 use App\Models\FormValue;
-use App\Models\settings;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -16,12 +15,6 @@ class HomeController extends Controller
     public function __construct()
     {
         $this->middleware(['auth', '2fa']);
-    }
-
-    public function frontpage()
-    {
-        $query['settings'] = settings::all();
-        return view('home', $query);
     }
 
     public function index()

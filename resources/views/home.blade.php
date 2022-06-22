@@ -10,7 +10,7 @@
     <meta name="theme-color" content="#136ef8" />
     <meta name="description" content="Dashboard" />
 
-    <title>@yield('title') | {{ Utility::getsettings('app_name') }}</title>
+    <title>@yield('title', __('Home')) | {{ Utility::getsettings('app_name') }}</title>
     <link rel="stylesheet" href="{{ asset('public/site/css/styles.css') }}" />
 
     <linkd href="https://fonts.googleapis.com/" crossorigin="true" />

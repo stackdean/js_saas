@@ -3,6 +3,7 @@
 use App\Http\Controllers\FormController;
 use App\Http\Controllers\FormValueController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\GeneralController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\PermissionController;
@@ -23,7 +24,7 @@ use Illuminate\Support\Facades\Auth;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/', [HomeController::class, 'frontpage'])->name('homepage')->middleware(['auth', 'xss']);
+Route::get('/', [GeneralController::class, 'frontpage'])->name('homepage');
 
 Route::get('/test-mail', [SettingsController::class, 'testMail'])->name('test.mail')->middleware(['auth','xss']);
 Auth::routes();
