@@ -89,6 +89,9 @@ class UsersDataTable extends DataTable
             Column::make('name')->title(__('Name')),
             Column::make('role')->title(__('Role')),
             Column::make('email')->title(__('Email')),
+            Column::make('balance')->title(__('Balance')),
+            Column::make('package_id')->title(__('Package')),
+            Column::make('subscription_date')->title(__('Subscription Date')),
             Column::computed('action')->title(__('Action'))
 
                 ->exportable(false)

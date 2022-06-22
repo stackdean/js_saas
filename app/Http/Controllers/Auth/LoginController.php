@@ -42,10 +42,10 @@ class LoginController extends Controller
     public function __construct()
     {
 
-        if (!file_exists(storage_path() . "/installed")) {
-            header('location:install');
-            die;
-        }
+        // if (!file_exists(storage_path() . "/installed")) {
+        //     header('location:install');
+        //     die;
+        // }
         $this->middleware('guest')->except('logout');
     }
 

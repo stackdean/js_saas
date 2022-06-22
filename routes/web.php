@@ -26,12 +26,19 @@ use Illuminate\Support\Facades\Auth;
 */
 Route::get('/', [GeneralController::class, 'frontpage'])->name('homepage');
 
-Route::get('/test-mail', [SettingsController::class, 'testMail'])->name('test.mail')->middleware(['auth','xss']);
-Auth::routes();
+// Route::get('/test-mail', [SettingsController::class, 'testMail'])->name('test.mail')->middleware(['auth','xss']);
 
+//Protected Routes Group with Sanctum
+Route::group(['middleware' => ['auth:sanctum']], function () {
+    Route::get('testsanc', [GeneralController::class, 'testMail'])->name('testsanc');
+});
+
+Auth::routes();
+//Protected Routes Group with Auth
 Route::group(['middleware' => ['auth', 'xss']], function () {
     Route::resource('profile', '\App\Http\Controllers\ProfileController');
     Route::resource('users', '\App\Http\Controllers\UserController');
+    Route::resource('packages', '\App\Http\Controllers\PackageController');
     Route::resource('permission', '\App\Http\Controllers\PermissionController');
     Route::resource('roles', '\App\Http\Controllers\RoleController');
     Route::resource('module', '\App\Http\Controllers\ModuleController');

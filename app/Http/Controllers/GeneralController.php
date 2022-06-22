@@ -10,4 +10,9 @@ class GeneralController extends Controller
     {
         return view('home');
     }
+
+    public function testauth()
+    {
+        return view('testing');
+    }
 }

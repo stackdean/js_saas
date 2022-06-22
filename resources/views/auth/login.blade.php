@@ -14,7 +14,7 @@
                         <h4 class="text-primary mb-3">{{ __('Sign in') }}</h4>
                     </div>
                     <form method="POST" class="needs-validation" action="{{ route('login') }}">
-                        @csrf
+                        {{ csrf_field() }}
                         <div class="text-start">
                             <div class="form-group mb-3">
                                 <label class="form-label mb-2" for="email">{{ __('E-Mail Address') }}</label>
