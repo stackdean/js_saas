@@ -14,14 +14,14 @@ class User extends Authenticatable
     use Notifiable;
     use HasRoles;
     // use HasApiTokens;
+    protected $appends = ['package_title'];
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'type', 'profile','lang',
-        'balance',
+        'name', 'email', 'password', 'type', 'profile','lang','balance',
         'package_id',
         'subscription_date',
     ];
@@ -56,5 +56,11 @@ class User extends Authenticatable
     {
         return $this->lang;
     }
+
+    public function getPackageTitleAttribute(){
+        return ($this->packages) ?  $this->packages->title : '---';
+    }
+
+
 
 }

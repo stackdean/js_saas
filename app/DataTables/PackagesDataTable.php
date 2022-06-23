@@ -34,7 +34,7 @@ class PackagesDataTable extends DataTable
      */
     public function query(Package $model)
     {
-        return $model->newQuery();
+        return $model->newQuery()->orderBy('id', 'ASC');
     }
 
     /**
@@ -64,7 +64,10 @@ class PackagesDataTable extends DataTable
                                         ",
 
                         'buttons'   => [
-                            ['extend' => 'create', 'className' => 'btn btn-primary btn-sm no-corner add_user', 'action' => " function ( e, dt, node, config ) {}"],
+                            ['extend' => 'create', 'className' => 'btn btn-primary btn-sm no-corner add_module', 'action' => " function ( e, dt, node, config ) {
+                                window.location = '" . route('packages.create') . "';
+
+                           }"],
                             ['extend' => 'export', 'className' => 'btn btn-primary btn-sm no-corner',],
                             ['extend' => 'print', 'className' => 'btn btn-primary btn-sm no-corner',],
                             ['extend' => 'reset', 'className' => 'btn btn-primary btn-sm no-corner',],

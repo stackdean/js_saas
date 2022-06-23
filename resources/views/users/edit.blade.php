@@ -3,7 +3,6 @@
     <div class="form-group">
         {{ Form::label('name', __('Name'), ['class' => 'col-form-label']) }}
 
-
         {!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => __('Enter Name')]) !!}
     </div>
     <div class="form-group">
@@ -32,8 +31,18 @@
 
     {{ Form::label('roles', __('Role'), ['class' => 'col-form-label']) }}
 
-
     {!! Form::select('roles', $roles, $userRole, ['class' => 'form-select']) !!}
+</div>
+<div class="form-group">
+    {{ Form::label('balance', __('Balance'), ['class' => 'col-form-label']) }}
+
+    {!! Form::number('balance', null, ['class' => 'form-control', 'placeholder' => __('Enter balance ex:100')]) !!}
+</div>
+<div class="form-group">
+
+    {{ Form::label('packages', __('Package'), ['class' => 'col-form-label']) }}
+
+    {!! Form::select('packages', $packages,$user->package_id, ['class' => 'form-select']) !!}
 </div>
 <div class="modal-footer">
     <div class="btn-flt float-end">

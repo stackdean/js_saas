@@ -1,18 +1,24 @@
 <?php
 
-use App\Http\Controllers\FormController;
-use App\Http\Controllers\FormValueController;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\GeneralController;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\MemberController;
-use App\Http\Controllers\PermissionController;
-use App\Http\Controllers\RoleController;
-use App\Http\Controllers\SettingsController;
-use App\Http\Controllers\SocialLoginController;
-use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\FormController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\AuditController;
+use App\Http\Controllers\MemberController;
+use App\Http\Controllers\AccountController;
+use App\Http\Controllers\BillingController;
+use App\Http\Controllers\GeneralController;
+use App\Http\Controllers\PackageController;
+use App\Http\Controllers\PartnerController;
+use App\Http\Controllers\SettingsController;
+use App\Http\Controllers\FormValueController;
+use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\SocialLoginController;
+use App\Http\Controllers\InstallationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,6 +31,7 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 Route::get('/', [GeneralController::class, 'frontpage'])->name('homepage');
+Route::get('/testings', [GeneralController::class, 'testauth'])->name('testings');
 
 // Route::get('/test-mail', [SettingsController::class, 'testMail'])->name('test.mail')->middleware(['auth','xss']);
 
@@ -34,6 +41,13 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 });
 
 Auth::routes();
+// ------ New FrontEnd Routes ------ //
+Route::get('/installation', [InstallationController::class, 'index'])->name('installation');
+Route::get('/account', [AccountController::class, 'index'])->name('account');
+Route::get('/billing', [BillingController::class, 'index'])->name('billing');
+Route::get('/audit', [AuditController::class, 'index'])->name('audit');
+Route::get('/partner', [PartnerController::class, 'index'])->name('partner');
+
 //Protected Routes Group with Auth
 Route::group(['middleware' => ['auth', 'xss']], function () {
     Route::resource('profile', '\App\Http\Controllers\ProfileController');
@@ -43,6 +57,9 @@ Route::group(['middleware' => ['auth', 'xss']], function () {
     Route::resource('roles', '\App\Http\Controllers\RoleController');
     Route::resource('module', '\App\Http\Controllers\ModuleController');
     Route::resource('formvalues', '\App\Http\Controllers\FormValueController');
+    Route::patch('/users/{id}/edit',[UserController::class,'update']);
+    Route::patch('/packages/{id}/edit',[PackageController::class,'update']);
+
 });
 Route::resource('forms', '\App\Http\Controllers\FormController')->middleware(['auth','xss']);
 

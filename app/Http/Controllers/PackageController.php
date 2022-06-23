@@ -26,7 +26,7 @@ class PackageController extends Controller
      */
     public function create()
     {
-        //
+        return view('package.create');
     }
 
     /**
@@ -72,9 +72,10 @@ class PackageController extends Controller
      * @param  \App\Models\Package  $package
      * @return \Illuminate\Http\Response
      */
-    public function edit(Package $package)
+    public function edit($id)
     {
-        //
+        $query['single']= Package::find($id);
+        return view('package.create', $query);
     }
 
     /**
@@ -84,9 +85,23 @@ class PackageController extends Controller
      * @param  \App\Models\Package  $package
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Package $package)
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'title' => ['required'],
+            'duration' => ['required'],
+            'fees' => ['required'],
+            'description' => ['required']
+        ]);
+
+        $package = Package::find($id);
+        $package->title = $request->title;
+        $package->duration = $request->duration;
+        $package->fees = $request->fees;
+        $package->description = $request->description;
+        $package->save();
+        return redirect()->route('packages.index')
+            ->with('success',  __('Package Edited successfully.'));
     }
 
     /**

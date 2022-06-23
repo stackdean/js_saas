@@ -45,7 +45,15 @@ class HomeController extends Controller
                         $query->select('form_id')->from('user_forms')->where('role_id', $role_id);
                     })->count();
             }
-            return view('dashboard/home', compact('user', 'form', 'submitted_form'));
+            if ($usr->type == 'Admin') {
+                return view('dashboard/home', compact('user', 'form', 'submitted_form'));
+            }else{
+                if(isset($usr->subscription_date)){
+                    return route('homepage');
+                }else{
+                    return route('testings');
+                }
+            }
         }
     }
     public function formchart(Request $request)

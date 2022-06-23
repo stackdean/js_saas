@@ -2,16 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\User;
-use App\Models\Mail\CreateUser;
-use Spatie\Permission\Models\Role;
-use App\DataTables\UsersDataTable;
-use App\Models\settings;
-use App\Models\SocialLogin;
-use Illuminate\Support\Facades\Mail;
 use DB;
 use Hash;
+use Carbon\Carbon;
+use App\Models\User;
+use App\Models\Package;
+use App\Models\settings;
+use App\Models\SocialLogin;
+use Illuminate\Http\Request;
+use App\Models\Mail\CreateUser;
+use App\DataTables\UsersDataTable;
+use Spatie\Permission\Models\Role;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class UserController extends Controller
 {
@@ -31,9 +35,12 @@ class UserController extends Controller
 
     public function create()
     {
-        $roles = Role::pluck('name', 'name')->all();
-        $view =  view('users.create', compact('roles'));
-        return ['html' => $view->render()];
+        $roles = Role::all();
+        $packages = Package::all();
+        // $view =  view('users.create', compact('roles','packages'));
+        // return ['html' => $view->render()];
+        return view('users.create', compact('roles','packages'));
+
     }
 
     public function store(Request $request)
@@ -42,14 +49,39 @@ class UserController extends Controller
             'name' => 'required',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|same:confirm-password',
-            'roles' => 'required'
+            'type' => 'required'
+            // 'roles' => 'required'
         ]);
-        $input = $request->all();
-        $input['type'] =  $input['roles'];
-        $input['password'] = Hash::make($input['password']);
-        $input['lang'] = setting('default_language');
-        $user = User::create($input);
-        $user->assignRole($request->input('roles'));
+        // $input = $request->all();
+        // $input['type'] =  $input['roles'];
+        // $input['password'] = Hash::make($input['password']);
+        // $input['lang'] = setting('default_language');
+        // if(!$request->balance){
+        //     $input['balance'] = 0;
+        // }else{
+        //     $input['balance'] = $request->balance;
+        // }
+        // $input['package_id'] = $request->package_id;
+        // if($request->package_id != Null){
+        //     $input['subscription_date'] = Carbon::now();
+        // }
+        $user = new User;
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = Hash::make($request->password);
+        if(!$request->balance){
+            $user->balance = 0;
+        }else{
+            $user->balance = $request->balance;
+        }
+        $user->package_id = $request->package_id;
+        if($request->package_id != Null){
+            $user->subscription_date = Carbon::now();
+        }
+        $user->type = $request->type;
+        $user->save();
+
+        $user->assignRole($request->type);
         $message = "Welcome" . env('APP_NAME') . "<br/>";
         $message .= "
         <b>Dear </b> $request->name <br/>
@@ -62,11 +94,16 @@ class UserController extends Controller
 
     public function edit($id)
     {
-        $user = User::find($id);
-        $roles = Role::pluck('name', 'name')->all();
-        $userRole = $user->roles->pluck('name', 'name')->all();
-        $view =   view('users.edit', compact('user', 'roles', 'userRole'));
-        return ['html' => $view->render()];
+        $query['single'] = User::find($id);
+        $query['roles'] = Role::all();
+        $query['packages'] = Package::all();
+        // $roles = Role::pluck('name', 'name')->all();
+        // $userRole = $user->roles->pluck('name', 'name')->all();
+        // $packages = Package::pluck('title', 'title')->all();
+        // $view =   view('users.edit', compact('user', 'roles', 'userRole','packages'));
+        // return ['html' => $view->render()];
+        // dd($query['single']);
+        return view('users.create', $query);
     }
 
     public function update(Request $request, $id)
@@ -75,18 +112,37 @@ class UserController extends Controller
             'name' => 'required',
             'email' => 'required|email',
             'password' => 'same:confirm-password',
-            'roles' => 'required'
+            // 'roles' => 'required',
+            'type' => 'required'
         ]);
-        $input = $request->all();
-        if (!isset($input['password']) || $input['password'] != '') {
-            $input['password'] = Hash::make($input['password']);
-        } else {
-            unset($input['password']);
+        $user= User::find($id);
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = Hash::make($request->password);
+        if(!$request->balance){
+            $user->balance = 0;
+        }else{
+            $user->balance = $request->balance;
         }
-        $user = User::find($id);
-        $user->update($input);
-        DB::table('model_has_roles')->where('model_id', $id)->delete();
-        $user->assignRole($request->input('roles'));
+        $user->package_id = $request->package_id;
+        if($request->package_id == Null){
+            $user->subscription_date = Null;
+        }elseif($request->package_id != Null && $user->package_id == Null || $request->package_id != Null && $user->subscription_date == Null){
+            $user->subscription_date = Carbon::now();
+        }
+        $user->type = $request->type;
+        $user->save();
+
+        // $input = $request->all();
+        // if (!isset($input['password']) || $input['password'] != '') {
+        //     $input['password'] = Hash::make($input['password']);
+        // } else {
+        //     unset($input['password']);
+        // }
+        // $user = User::find($id);
+        // $user->update($input);
+        // DB::table('model_has_roles')->where('model_id', $id)->delete();
+        // $user->assignRole($request->input('roles'));
         return redirect()->route('users.index')
             ->with('success',  __('User updated successfully'));
     }

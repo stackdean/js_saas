@@ -2,6 +2,7 @@
 
 namespace App\DataTables;
 
+use App\Models\Package;
 use App\Models\User;
 use App\Models\Role;
 use Yajra\DataTables\Html\Button;
@@ -34,6 +35,7 @@ class UsersDataTable extends DataTable
 
     public function query(User $model)
     {
+        // return $model->where('id', '!=', 1)->join();
         return $model->newQuery()->where('id', '!=', 1)->orderBy('id', 'ASC');
     }
 
@@ -58,7 +60,10 @@ class UsersDataTable extends DataTable
                                 ",
 
                 'buttons'   => [
-                    ['extend' => 'create', 'className' => 'btn btn-primary btn-sm no-corner add_user', 'action' => " function ( e, dt, node, config ) {}"],
+                    ['extend' => 'create', 'className' => 'btn btn-primary btn-sm no-corner add_user', 'action' => " function ( e, dt, node, config ) {
+                        window.location = '" . route('users.create') . "';
+
+                   }"],
                     ['extend' => 'export', 'className' => 'btn btn-primary btn-sm no-corner',],
                     ['extend' => 'print', 'className' => 'btn btn-primary btn-sm no-corner',],
                     ['extend' => 'reset', 'className' => 'btn btn-primary btn-sm no-corner',],
@@ -84,13 +89,15 @@ class UsersDataTable extends DataTable
 
     protected function getColumns()
     {
+        // dd($this);
+        // $user = User::find('id');
         return [
             Column::make('No')->title(__('No'))->data('DT_RowIndex')->name('DT_RowIndex')->searchable(false)->orderable(false),
             Column::make('name')->title(__('Name')),
             Column::make('role')->title(__('Role')),
             Column::make('email')->title(__('Email')),
             Column::make('balance')->title(__('Balance')),
-            Column::make('package_id')->title(__('Package')),
+            Column::make('package_title')->title(__('Package')),
             Column::make('subscription_date')->title(__('Subscription Date')),
             Column::computed('action')->title(__('Action'))
 
