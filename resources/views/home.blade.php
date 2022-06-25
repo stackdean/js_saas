@@ -1389,7 +1389,8 @@
                             role="presentation" />
                     </div>
                     <div class="content" role="main" data-a11y-landmark="content" id="a11y-landmark-content">
-                        <h1 class="title title-huge">Welcome, {{Auth::user()->name}}!</h1>
+                        <h1 class="title title-huge">Welcome, @if(Auth::user())
+                            {{Auth::user()->name}}!@else Dear! @endif</h1>
                         <div class="notification-list">
                             <ul>
                                 <li>

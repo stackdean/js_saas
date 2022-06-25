@@ -40,6 +40,10 @@ if (Auth::user()->type == 'Admin') {
                                 class="ti ti-home"></i></span>
                         <span class="dash-mtext custom-weight">{{ __('Dashboard') }}</span></a>
                 </li>
+                <li class="dash-item dash-hasmenu">
+                    <a href="{{ route('packages.index') }}" class="dash-link"><span class="dash-micon"><i class="ti ti-briefcase"></i></span>
+                        <span class="dash-mtext custom-weight">{{ __('Packages') }}</span></a>
+                </li>
 
                 @can('manage-user')
                     <li class="dash-item dash-hasmenu">
