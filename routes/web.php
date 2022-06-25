@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\StripeController;
 use App\Http\Controllers\FlowController;
 use App\Http\Controllers\FormController;
 use App\Http\Controllers\HomeController;
@@ -36,7 +37,7 @@ use App\Http\Controllers\InstallationController;
 Route::get('/', [GeneralController::class, 'frontpage'])->name('homepage');
 // Route::get('/testings', [GeneralController::class, 'testauth'])->name('testings');
 
-// Route::get('/test-mail', [SettingsController::class, 'testMail'])->name('test.mail')->middleware(['auth','xss']);
+Route::get('/test-mail', [SettingsController::class, 'testMail'])->name('test.mail')->middleware(['auth','xss']);
 
 //Protected Routes Group with Sanctum
 Route::group(['middleware' => ['auth:sanctum']], function () {
@@ -54,6 +55,12 @@ Route::get('/partner', [PartnerController::class, 'index'])->name('partner');
 Route::get('/widget', [WidgetController::class, 'index'])->name('widget');
 Route::get('/flow', [FlowController::class, 'index'])->name('flow');
 Route::get('/campus', [CampusController::class, 'index'])->name('campus');
+
+// ------ Stripe Payment Routes ------ //
+
+Route::get('stripe-form', [StripeController::class, 'form'])->name('stripeForm');
+Route::post('stripe-form/submit', [StripeController::class, 'submit'])->name('stripeSubmit');
+Route::get('stripe-response/{id}', [StripeController::class, 'response'])->name('stripeResponse');
 
 //Protected Routes Group with Auth
 Route::group(['middleware' => ['auth', 'xss']], function () {
