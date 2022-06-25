@@ -785,355 +785,219 @@
     </div>
     <div class="loadbar"></div>
     <header class="header">
-      <nav class="top">
-        <div class="wrap flex flex-nowrap">
-          <div class="start flex flex-inline flex-nowrap">
-            <a href="{{ route('homepage') }}" class="logo">
-                <!-- ========   change your logo hear   ============ -->
-                @if (Utility::getsettings('dark_mode') == 'on')
-                <img src="{{ Utility::getsettings('app_logo') ? Storage::url('uploads/appLogo/app-logo.png') : '' }}"
-                class="app-logo w-55">
-                @else
-                <img src="{{ Utility::getsettings('app_dark_logo') ? Storage::url('uploads/appLogo/app-dark-logo.png') : '' }}"
-                        class="app-logo w-55">
-                @endif
-            </a>
-            <nav
-              class="menu js-a11y-bound"
-              aria-label="Main menu"
-              data-a11y-landmark="menu"
-              id="a11y-landmark-menu"
-            >
-              <ul>
-                <li>
+        <nav class="top">
+            <div class="wrap flex flex-nowrap">
+                <div class="start flex flex-inline flex-nowrap">
+                    <a href="{{ route('homepage') }}" class="logo">
+                        <!-- ========   change your logo hear   ============ -->
+                        @if (Utility::getsettings('dark_mode') == 'on')
+                        <img src="{{ Utility::getsettings('app_logo') ? Storage::url('uploads/appLogo/app-logo.png') : '' }}"
+                            class="app-logo w-55">
+                        @else
+                        <img src="{{ Utility::getsettings('app_dark_logo') ? Storage::url('uploads/appLogo/app-dark-logo.png') : '' }}"
+                            class="app-logo w-55">
+                        @endif
+                    </a>
+                    <nav class="menu js-a11y-bound" aria-label="Main menu" data-a11y-landmark="menu"
+                        id="a11y-landmark-menu">
+                        <ul>
+                            <li>
+                                <a class="" href="{{url('widget')}}" data-a11y-tooltip="Use ←/→ to navigate"><i
+                                        class="icon icon-access-widget" aria-hidden="true" role="presentation"><svg
+                                            width="20" height="20" viewBox="0 0 20 20" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <g clip-path="url(#clip0_1863_50601)">
+                                                <path
+                                                    d="M13.8394 15.841C15.4493 15.841 16.9933 15.2009 18.1317 14.0615C19.2701 12.922 19.9096 11.3766 19.9096 9.76524C19.9096 8.15384 19.2701 6.60844 18.1317 5.46901C16.9933 4.32958 15.4493 3.68945 13.8394 3.68945L13.8394 15.841Z"
+                                                    fill="white"></path>
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M3.45611 0C1.54735 0 0 1.49239 0 3.33335V20.0001H10.3683C12.2771 20.0001 13.8244 18.5077 13.8244 16.6668V15.8418C12.2158 15.8408 10.6733 15.2008 9.53579 14.0622C8.39739 12.9228 7.75784 11.3774 7.75784 9.76601C7.75784 8.15462 8.39739 6.60922 9.53579 5.46979C10.6733 4.33123 12.2158 3.69121 13.8244 3.69023V0H3.45611Z"
+                                                    fill="white"></path>
+                                            </g>
+                                            <defs>
+                                                <clippath id="clip0_1863_50601">
+                                                    <rect width="20" height="20" fill="white"></rect>
+                                                </clippath>
+                                            </defs>
+                                        </svg></i>
+                                    accessWidget
+                                </a>
+                            </li>
+                            <li>
+                                <a class="" href="{{url('flow')}}"><i class="icon icon-access-flow" aria-hidden="true"
+                                        role="presentation"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <g clip-path="url(#clip0_1860_50908)">
+                                                <path
+                                                    d="M6.42797 0.0146484H6.96413L9.89533 4.67847L6.67199 9.80712L9.89533 14.9358L6.96413 19.5996H6.42797C5.59832 19.5996 4.8373 19.1389 4.45266 18.4038L-0.0454102 9.80712L4.45266 1.21046C4.8373 0.475357 5.59832 0.0146484 6.42797 0.0146484Z"
+                                                    fill="white"></path>
+                                                <path
+                                                    d="M13.3694 0.0146484H12.8332L9.90203 4.67847L13.1254 9.80712L9.90203 14.9358L12.8332 19.5996H13.3694C14.199 19.5996 14.9601 19.1389 15.3447 18.4038L19.8428 9.80712L15.3447 1.21046C14.9601 0.475357 14.199 0.0146484 13.3694 0.0146484Z"
+                                                    fill="white"></path>
+                                            </g>
+                                            <defs>
+                                                <clippath id="clip0_1860_50908">
+                                                    <rect width="20" height="20" fill="white"></rect>
+                                                </clippath>
+                                            </defs>
+                                        </svg></i>
+                                    accessFlow
+                                </a>
+                            </li>
+                            {{-- <li>
+                      <a class="" href="accessservices.html"><i class="icon icon-access-services"
+                              aria-hidden="true" role="presentation"><svg width="20" height="20"
+                                  viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                  <rect x="1.03809" y="5.83887" width="17.9241" height="13.1229" rx="0.5"
+                                      fill="white"></rect>
+                                  <path
+                                      d="M2.31713 1.30162C2.40423 1.13934 2.5735 1.03809 2.75768 1.03809H9.37381C9.55799 1.03809 9.72725 1.13934 9.81436 1.30162L10.6981 2.94807C10.8769 3.28117 10.6356 3.68454 10.2575 3.68454H1.87393C1.49589 3.68454 1.2546 3.28117 1.43339 2.94807L2.31713 1.30162Z"
+                                      fill="white"></path>
+                              </svg></i>
+                          accessServices
+                      </a>
+                  </li> --}}
+                            <li>
+                                <a class="" href="{{url('campus')}}"><i class="icon icon-access-campus"
+                                        aria-hidden="true" role="presentation"><svg width="27" height="20"
+                                            viewBox="0 0 27 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M13.5677 0.154297L26.741 7.95456L21.6356 10.9416L21.6723 16.0005C21.6723 18.1243 18.0134 19.8468 13.4997 19.8468C8.98637 19.8468 5.32749 18.1243 5.32749 16.0005L5.38328 11.3096L5.39502 10.8593L0.258789 7.89388L13.5677 0.154297ZM5.46842 10.8593L13.4174 15.6706L21.549 10.9053L20.7083 10.4659C15.9009 7.95554 10.1383 8.1043 5.46842 10.8593Z"
+                                                fill="white"></path>
+                                        </svg></i>
+                                    accessCampus <span class="flag">SOON</span></a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="end actions flex flex-inline flex-nowrap flex-horizontal-end">
+                    @if(Auth::user())
+                    <a href="{{url('account')}}" class="action profile flex flex-inline flex-nowrap"
+                        aria-label="Account"><span class="letter">U</span><span
+                            class="name">{{Auth::user()->name}}</span>
+                    </a>
+                    @else
+                    <a href="{{url('login')}}" class="action profile flex flex-inline flex-nowrap"
+                        aria-label="login"><span class="letter">L</span><span class="name">Login</span>
+                    </a>
+                    @endif
+                    <a class="action button button-small button-gray js-a11y-bound" href="#popup-demo" role="button">
+                        Contact Sales
+                    </a>
+                    <button class="notifications-trigger js-a11y-bound" data-clicker-trigger="notifications">
+                        <i class="icon icon-bell" aria-hidden="true" role="presentation"><svg version="1.1"
+                                xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+                                <path
+                                    d="M16.023 12.5c0-4.5-4-3.5-4-7 0-0.29-0.028-0.538-0.079-0.749-0.263-1.766-1.44-3.183-2.965-3.615 0.014-0.062 0.021-0.125 0.021-0.191 0-0.52-0.45-0.945-1-0.945s-1 0.425-1 0.945c0 0.065 0.007 0.129 0.021 0.191-1.71 0.484-2.983 2.208-3.020 4.273-0.001 0.030-0.001 0.060-0.001 0.091 0 3.5-4 2.5-4 7 0 1.191 2.665 2.187 6.234 2.439 0.336 0.631 1.001 1.061 1.766 1.061s1.43-0.43 1.766-1.061c3.568-0.251 6.234-1.248 6.234-2.439 0-0.004-0-0.007-0-0.011l0.024 0.011zM12.91 13.345c-0.847 0.226-1.846 0.389-2.918 0.479-0.089-1.022-0.947-1.824-1.992-1.824s-1.903 0.802-1.992 1.824c-1.072-0.090-2.071-0.253-2.918-0.479-1.166-0.311-1.724-0.659-1.928-0.845 0.204-0.186 0.762-0.534 1.928-0.845 1.356-0.362 3.1-0.561 4.91-0.561s3.554 0.199 4.91 0.561c1.166 0.311 1.724 0.659 1.928 0.845-0.204 0.186-0.762 0.534-1.928 0.845z">
+                                </path>
+                            </svg></i>
+                    </button>
+                    <div class="notifications" data-clicker-element="notifications" data-clicker-focus="true">
+                        <div class="notification-list">
+                            <ul>
+                                <li>
+                                    <a class="notification danger flex flex-nowrap js-a11y-bound"
+                                        href="https://dashboard.accessibe.com/NOTIFICATION_RECENTLYEXPIRED_LINK"
+                                        data-clicker-trigger="managebar"
+                                        data-manage-accesswidget="629002a7e3cf150011fa4787" role="button"
+                                        aria-hidden="true" tabindex="-1">
+                                        <div class="message flex flex-nowrap flex-horizontal-start">
+                                            <i class="icon icon-warning" aria-hidden="true" role="presentation"><svg
+                                                    version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+                                                    viewBox="0 0 42.1 37" style="enable-background: new 0 0 42.1 37"
+                                                    xml:space="preserve">
+                                                    <path
+                                                        d="M19.3,1c0.8-1.3,2.7-1.3,3.5,0l19.1,33c0.8,1.3-0.2,3-1.7,3H2c-1.5,0-2.5-1.7-1.7-3L19.3,1z">
+                                                    </path>
+                                                </svg></i>
+                                            The license for whatshungry.com has recently expired and
+                                            needs to be activated
+                                        </div>
+                                        <span class="text-button text-button-small text-button-nocolor">
+                                            Resolve
+                                            <i class="icon icon-chevron-right" aria-hidden="true" role="presentation">
+                                                <!--?xml version="1.0" encoding="utf-8"?--><svg version="1.1"
+                                                    id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+                                                    xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                                    viewBox="0 0 9.5 16" style="enable-background: new 0 0 9.5 16"
+                                                    xml:space="preserve">
+                                                    <path d="M1.5,0L0,1.5L6.5,8L0,14.5L1.5,16l8-8L1.5,0z"></path>
+                                                </svg></i></span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <div class="bottom">
+            <div class="wrap flex flex-reverse flex-nowrap">
+                <div class="start search" role="search" data-search="form">
+                    <form action="#" method="POST" enctype="multipart/form-data">
+                        <div class="search-bar">
+                            <input data-search="input" type="search" placeholder="Search your licenses..."
+                                aria-label="Search your licenses..." tabindex="0" /><i class="icon icon-search"
+                                aria-hidden="true" role="presentation"><svg version="1.1"
+                                    xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 23 23"
+                                    style="enable-background: new 0 0 23 23" xml:space="preserve">
+                                    <path
+                                        d="M22.6,20.8l-4.3-4.3c1.4-1.8,2.2-4,2.2-6.3c0-2-0.6-4-1.7-5.7s-2.7-3-4.6-3.8s-3.9-1-5.9-0.6C6.2,0.6,4.4,1.6,3,3 S0.6,6.2,0.2,8.2s-0.2,4,0.6,5.9s2.1,3.5,3.8,4.6s3.7,1.7,5.7,1.7c2.3,0,4.5-0.8,6.3-2.2l4.3,4.3c0.1,0.1,0.3,0.2,0.4,0.3 c0.2,0.1,0.3,0.1,0.5,0.1s0.3,0,0.5-0.1s0.3-0.2,0.4-0.3c0.1-0.1,0.2-0.3,0.3-0.4c0.1-0.2,0.1-0.3,0.1-0.5s0-0.3-0.1-0.5 C22.8,21.1,22.7,20.9,22.6,20.8z M2.6,10.2c0-1.5,0.4-3,1.3-4.3c0.8-1.3,2-2.2,3.4-2.8s2.9-0.7,4.4-0.4s2.9,1,3.9,2.1 c1.1,1.1,1.8,2.4,2.1,3.9c0.3,1.5,0.1,3-0.4,4.4c-0.6,1.4-1.6,2.6-2.8,3.4c-1.3,0.8-2.7,1.3-4.3,1.3c-2,0-4-0.8-5.4-2.2 C3.4,14.2,2.6,12.3,2.6,10.2z">
+                                    </path>
+                                </svg></i><span class="spinner spinner-fast"></span>
+                        </div>
+                        <div class="search-results" data-search="results"></div>
+                    </form>
+                </div>
+                <nav class="menu flex flex-nowrap js-a11y-bound" aria-label="Main menu" data-a11y-landmark="menu"
+                    id="a11y-landmark-menu">
+                    <ul>
+                        <li>
+                            <a class="" href="{{url('widget')}}" data-a11y-tooltip="Use ←/→ to navigate"
+                                aria-hidden="true" tabindex="-1">
+                                accessWidget
+                            </a>
+                        </li>
+                        <li>
+                            <a class="" href="{{url('flow')}}" aria-hidden="true" tabindex="-1">
+                                accessFlow
+                            </a>
+                        </li>
+                        {{-- <li>
                   <a
                     class=""
-                    href="accesswidget.html"
-                    data-a11y-tooltip="Use ←/→ to navigate"
-                    ><i
-                      class="icon icon-access-widget"
-                      aria-hidden="true"
-                      role="presentation"
-                      ><svg
-                        width="20"
-                        height="20"
-                        viewBox="0 0 20 20"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <g clip-path="url(#clip0_1863_50601)">
-                          <path
-                            d="M13.8394 15.841C15.4493 15.841 16.9933 15.2009 18.1317 14.0615C19.2701 12.922 19.9096 11.3766 19.9096 9.76524C19.9096 8.15384 19.2701 6.60844 18.1317 5.46901C16.9933 4.32958 15.4493 3.68945 13.8394 3.68945L13.8394 15.841Z"
-                            fill="white"
-                          ></path>
-                          <path
-                            fill-rule="evenodd"
-                            clip-rule="evenodd"
-                            d="M3.45611 0C1.54735 0 0 1.49239 0 3.33335V20.0001H10.3683C12.2771 20.0001 13.8244 18.5077 13.8244 16.6668V15.8418C12.2158 15.8408 10.6733 15.2008 9.53579 14.0622C8.39739 12.9228 7.75784 11.3774 7.75784 9.76601C7.75784 8.15462 8.39739 6.60922 9.53579 5.46979C10.6733 4.33123 12.2158 3.69121 13.8244 3.69023V0H3.45611Z"
-                            fill="white"
-                          ></path>
-                        </g>
-                        <defs>
-                          <clippath id="clip0_1863_50601">
-                            <rect width="20" height="20" fill="white"></rect>
-                          </clippath>
-                        </defs></svg
-                    ></i>
-                    accessWidget
-                  </a>
-                </li>
-                <li>
-                  <a class="" href="accessflow.html"
-                    ><i
-                      class="icon icon-access-flow"
-                      aria-hidden="true"
-                      role="presentation"
-                      ><svg
-                        width="20"
-                        height="20"
-                        viewBox="0 0 20 20"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <g clip-path="url(#clip0_1860_50908)">
-                          <path
-                            d="M6.42797 0.0146484H6.96413L9.89533 4.67847L6.67199 9.80712L9.89533 14.9358L6.96413 19.5996H6.42797C5.59832 19.5996 4.8373 19.1389 4.45266 18.4038L-0.0454102 9.80712L4.45266 1.21046C4.8373 0.475357 5.59832 0.0146484 6.42797 0.0146484Z"
-                            fill="white"
-                          ></path>
-                          <path
-                            d="M13.3694 0.0146484H12.8332L9.90203 4.67847L13.1254 9.80712L9.90203 14.9358L12.8332 19.5996H13.3694C14.199 19.5996 14.9601 19.1389 15.3447 18.4038L19.8428 9.80712L15.3447 1.21046C14.9601 0.475357 14.199 0.0146484 13.3694 0.0146484Z"
-                            fill="white"
-                          ></path>
-                        </g>
-                        <defs>
-                          <clippath id="clip0_1860_50908">
-                            <rect width="20" height="20" fill="white"></rect>
-                          </clippath>
-                        </defs></svg
-                    ></i>
-                    accessFlow
-                  </a>
-                </li>
-                <li>
-                  <a class="" href="accessservices.html"
-                    ><i
-                      class="icon icon-access-services"
-                      aria-hidden="true"
-                      role="presentation"
-                      ><svg
-                        width="20"
-                        height="20"
-                        viewBox="0 0 20 20"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <rect
-                          x="1.03809"
-                          y="5.83887"
-                          width="17.9241"
-                          height="13.1229"
-                          rx="0.5"
-                          fill="white"
-                        ></rect>
-                        <path
-                          d="M2.31713 1.30162C2.40423 1.13934 2.5735 1.03809 2.75768 1.03809H9.37381C9.55799 1.03809 9.72725 1.13934 9.81436 1.30162L10.6981 2.94807C10.8769 3.28117 10.6356 3.68454 10.2575 3.68454H1.87393C1.49589 3.68454 1.2546 3.28117 1.43339 2.94807L2.31713 1.30162Z"
-                          fill="white"
-                        ></path></svg
-                    ></i>
+                    href="accessservices.html"
+                    aria-hidden="true"
+                    tabindex="-1"
+                  >
                     accessServices
                   </a>
-                </li>
-                <li>
-                  <a class="" href="accesscampus.html"
-                    ><i
-                      class="icon icon-access-campus"
-                      aria-hidden="true"
-                      role="presentation"
-                      ><svg
-                        width="27"
-                        height="20"
-                        viewBox="0 0 27 20"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          fill-rule="evenodd"
-                          clip-rule="evenodd"
-                          d="M13.5677 0.154297L26.741 7.95456L21.6356 10.9416L21.6723 16.0005C21.6723 18.1243 18.0134 19.8468 13.4997 19.8468C8.98637 19.8468 5.32749 18.1243 5.32749 16.0005L5.38328 11.3096L5.39502 10.8593L0.258789 7.89388L13.5677 0.154297ZM5.46842 10.8593L13.4174 15.6706L21.549 10.9053L20.7083 10.4659C15.9009 7.95554 10.1383 8.1043 5.46842 10.8593Z"
-                          fill="white"
-                        ></path></svg
-                    ></i>
-                    accessCampus <span class="flag">SOON</span></a
-                  >
-                </li>
-              </ul>
-            </nav>
-          </div>
-          <div
-            class="end actions flex flex-inline flex-nowrap flex-horizontal-end"
-          >
-            <a
-              href="account.html"
-              class="action profile flex flex-inline flex-nowrap"
-              aria-label="Account"
-              ><span class="letter">m</span><span class="name">muz</span></a
-            ><a
-              class="action button button-small button-gray js-a11y-bound"
-              href="audits.html#popup-demo"
-              role="button"
-            >
-              Contact Sales </a
-            ><button
-              class="notifications-trigger js-a11y-bound"
-              data-clicker-trigger="notifications"
-            >
-              <i class="icon icon-bell" aria-hidden="true" role="presentation"
-                ><svg
-                  version="1.1"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  viewBox="0 0 16 16"
-                >
-                  <path
-                    d="M16.023 12.5c0-4.5-4-3.5-4-7 0-0.29-0.028-0.538-0.079-0.749-0.263-1.766-1.44-3.183-2.965-3.615 0.014-0.062 0.021-0.125 0.021-0.191 0-0.52-0.45-0.945-1-0.945s-1 0.425-1 0.945c0 0.065 0.007 0.129 0.021 0.191-1.71 0.484-2.983 2.208-3.020 4.273-0.001 0.030-0.001 0.060-0.001 0.091 0 3.5-4 2.5-4 7 0 1.191 2.665 2.187 6.234 2.439 0.336 0.631 1.001 1.061 1.766 1.061s1.43-0.43 1.766-1.061c3.568-0.251 6.234-1.248 6.234-2.439 0-0.004-0-0.007-0-0.011l0.024 0.011zM12.91 13.345c-0.847 0.226-1.846 0.389-2.918 0.479-0.089-1.022-0.947-1.824-1.992-1.824s-1.903 0.802-1.992 1.824c-1.072-0.090-2.071-0.253-2.918-0.479-1.166-0.311-1.724-0.659-1.928-0.845 0.204-0.186 0.762-0.534 1.928-0.845 1.356-0.362 3.1-0.561 4.91-0.561s3.554 0.199 4.91 0.561c1.166 0.311 1.724 0.659 1.928 0.845-0.204 0.186-0.762 0.534-1.928 0.845z"
-                  ></path></svg
-              ></i>
-            </button>
-            <div
-              class="notifications"
-              data-clicker-element="notifications"
-              data-clicker-focus="true"
-            >
-              <div class="notification-list">
-                <ul>
-                  <li>
-                    <a
-                      class="notification danger flex flex-nowrap js-a11y-bound"
-                      href="https://dashboard.accessibe.com/NOTIFICATION_RECENTLYEXPIRED_LINK"
-                      data-clicker-trigger="managebar"
-                      data-manage-accesswidget="629002a7e3cf150011fa4787"
-                      role="button"
-                      aria-hidden="true"
-                      tabindex="-1"
-                      ><div
-                        class="message flex flex-nowrap flex-horizontal-start"
-                      >
-                        <i
-                          class="icon icon-warning"
-                          aria-hidden="true"
-                          role="presentation"
-                          ><svg
-                            version="1.1"
-                            xmlns="http://www.w3.org/2000/svg"
-                            x="0px"
-                            y="0px"
-                            viewBox="0 0 42.1 37"
-                            style="enable-background: new 0 0 42.1 37"
-                            xml:space="preserve"
-                          >
-                            <path
-                              d="M19.3,1c0.8-1.3,2.7-1.3,3.5,0l19.1,33c0.8,1.3-0.2,3-1.7,3H2c-1.5,0-2.5-1.7-1.7-3L19.3,1z"
-                            ></path></svg
-                        ></i>
-                        The license for whatshungry.com has recently expired and
-                        needs to be activated
-                      </div>
-                      <span
-                        class="text-button text-button-small text-button-nocolor"
-                      >
-                        Resolve
-                        <i
-                          class="icon icon-chevron-right"
-                          aria-hidden="true"
-                          role="presentation"
-                          ><!--?xml version="1.0" encoding="utf-8"?--><svg
-                            version="1.1"
-                            id="Layer_1"
-                            xmlns="http://www.w3.org/2000/svg"
-                            xmlns:xlink="http://www.w3.org/1999/xlink"
-                            x="0px"
-                            y="0px"
-                            viewBox="0 0 9.5 16"
-                            style="enable-background: new 0 0 9.5 16"
-                            xml:space="preserve"
-                          >
-                            <path
-                              d="M1.5,0L0,1.5L6.5,8L0,14.5L1.5,16l8-8L1.5,0z"
-                            ></path></svg></i></span
-                    ></a>
-                  </li>
-                </ul>
-              </div>
+                </li> --}}
+                        <li>
+                            <a class="" href="{{url('campus')}}" aria-hidden="true" tabindex="-1">
+                                accessCampus <span class="flag">SOON</span></a>
+                        </li>
+                    </ul>
+                    <ul>
+                        <li>
+                            <a class="" href="{{url('account')}}"> Account &amp; Team </a>
+                        </li>
+                        <li>
+                            <a class="" href="{{url('billing')}}"> Billing &amp; Payments </a>
+                        </li>
+                        <li>
+                            <a class="active" href="{{url('audit')}}"> Accessibility Audits </a>
+                        </li>
+                        <li>
+                            <a class="" href="{{url('partner')}}"> Partner Portal </a>
+                        </li>
+                        <li>
+                            <a class="" href="{{url('installation')}}"> Installation </a>
+                        </li>
+                    </ul>
+                </nav>
             </div>
-          </div>
         </div>
-      </nav>
-      <div class="bottom">
-        <div class="wrap flex flex-reverse flex-nowrap">
-          <div class="start search" role="search" data-search="form">
-            <form
-              action="audits.html#"
-              method="POST"
-              enctype="multipart/form-data"
-            >
-              <div class="search-bar">
-                <input
-                  data-search="input"
-                  type="search"
-                  placeholder="Search your licenses..."
-                  aria-label="Search your licenses..."
-                  tabindex="0"
-                /><i
-                  class="icon icon-search"
-                  aria-hidden="true"
-                  role="presentation"
-                  ><svg
-                    version="1.1"
-                    xmlns="http://www.w3.org/2000/svg"
-                    x="0px"
-                    y="0px"
-                    viewBox="0 0 23 23"
-                    style="enable-background: new 0 0 23 23"
-                    xml:space="preserve"
-                  >
-                    <path
-                      d="M22.6,20.8l-4.3-4.3c1.4-1.8,2.2-4,2.2-6.3c0-2-0.6-4-1.7-5.7s-2.7-3-4.6-3.8s-3.9-1-5.9-0.6C6.2,0.6,4.4,1.6,3,3 S0.6,6.2,0.2,8.2s-0.2,4,0.6,5.9s2.1,3.5,3.8,4.6s3.7,1.7,5.7,1.7c2.3,0,4.5-0.8,6.3-2.2l4.3,4.3c0.1,0.1,0.3,0.2,0.4,0.3 c0.2,0.1,0.3,0.1,0.5,0.1s0.3,0,0.5-0.1s0.3-0.2,0.4-0.3c0.1-0.1,0.2-0.3,0.3-0.4c0.1-0.2,0.1-0.3,0.1-0.5s0-0.3-0.1-0.5 C22.8,21.1,22.7,20.9,22.6,20.8z M2.6,10.2c0-1.5,0.4-3,1.3-4.3c0.8-1.3,2-2.2,3.4-2.8s2.9-0.7,4.4-0.4s2.9,1,3.9,2.1 c1.1,1.1,1.8,2.4,2.1,3.9c0.3,1.5,0.1,3-0.4,4.4c-0.6,1.4-1.6,2.6-2.8,3.4c-1.3,0.8-2.7,1.3-4.3,1.3c-2,0-4-0.8-5.4-2.2 C3.4,14.2,2.6,12.3,2.6,10.2z"
-                    ></path></svg></i
-                ><span class="spinner spinner-fast"></span>
-              </div>
-              <div class="search-results" data-search="results"></div>
-            </form>
-          </div>
-          <nav
-            class="menu flex flex-nowrap js-a11y-bound"
-            aria-label="Main menu"
-            data-a11y-landmark="menu"
-            id="a11y-landmark-menu"
-          >
-            <ul>
-              <li>
-                <a
-                  class=""
-                  href="accesswidget.html"
-                  data-a11y-tooltip="Use ←/→ to navigate"
-                  aria-hidden="true"
-                  tabindex="-1"
-                >
-                  accessWidget
-                </a>
-              </li>
-              <li>
-                <a
-                  class=""
-                  href="accessflow.html"
-                  aria-hidden="true"
-                  tabindex="-1"
-                >
-                  accessFlow
-                </a>
-              </li>
-              <li>
-                <a
-                  class=""
-                  href="accessservices.html"
-                  aria-hidden="true"
-                  tabindex="-1"
-                >
-                  accessServices
-                </a>
-              </li>
-              <li>
-                <a
-                  class=""
-                  href="accesscampus.html"
-                  aria-hidden="true"
-                  tabindex="-1"
-                >
-                  accessCampus <span class="flag">SOON</span></a
-                >
-              </li>
-            </ul>
-            <ul>
-              <li>
-                <a class="" href="{{url('account')}}"> Account &amp; Team </a>
-              </li>
-              <li>
-                <a class="" href="{{url('billing')}}"> Billing &amp; Payments </a>
-              </li>
-              <li>
-                <a class="active" href="{{url('audit')}}"> Accessibility Audits </a>
-              </li>
-              <li>
-                <a class="" href="{{url('partner')}}"> Partner Portal </a>
-              </li>
-              <li>
-                <a class="" href="{{url('installation')}}"> Installation </a>
-              </li>
-            </ul>
-          </nav>
-        </div>
-      </div>
     </header>
     <div
       class="popup popup-demo js-ready"

@@ -2,17 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Package;
 use Illuminate\Http\Request;
 
 class GeneralController extends Controller
 {
     public function frontpage()
     {
-        return view('home');
+        $query['services']= Package::all();
+        return view('home',$query);
     }
 
-    public function testauth()
-    {
-        return view('testing');
-    }
 }

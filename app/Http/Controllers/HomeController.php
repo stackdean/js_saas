@@ -48,11 +48,7 @@ class HomeController extends Controller
             if ($usr->type == 'Admin') {
                 return view('dashboard/home', compact('user', 'form', 'submitted_form'));
             }else{
-                if(isset($usr->subscription_date)){
-                    return route('homepage');
-                }else{
-                    return route('testings');
-                }
+                return route('homepage');
             }
         }
     }

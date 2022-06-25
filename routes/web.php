@@ -3,12 +3,15 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\FlowController;
 use App\Http\Controllers\FormController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AuditController;
+use App\Http\Controllers\CampusController;
 use App\Http\Controllers\MemberController;
+use App\Http\Controllers\WidgetController;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\BillingController;
 use App\Http\Controllers\GeneralController;
@@ -31,7 +34,7 @@ use App\Http\Controllers\InstallationController;
 |
 */
 Route::get('/', [GeneralController::class, 'frontpage'])->name('homepage');
-Route::get('/testings', [GeneralController::class, 'testauth'])->name('testings');
+// Route::get('/testings', [GeneralController::class, 'testauth'])->name('testings');
 
 // Route::get('/test-mail', [SettingsController::class, 'testMail'])->name('test.mail')->middleware(['auth','xss']);
 
@@ -47,6 +50,10 @@ Route::get('/account', [AccountController::class, 'index'])->name('account');
 Route::get('/billing', [BillingController::class, 'index'])->name('billing');
 Route::get('/audit', [AuditController::class, 'index'])->name('audit');
 Route::get('/partner', [PartnerController::class, 'index'])->name('partner');
+
+Route::get('/widget', [WidgetController::class, 'index'])->name('widget');
+Route::get('/flow', [FlowController::class, 'index'])->name('flow');
+Route::get('/campus', [CampusController::class, 'index'])->name('campus');
 
 //Protected Routes Group with Auth
 Route::group(['middleware' => ['auth', 'xss']], function () {
