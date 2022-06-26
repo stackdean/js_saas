@@ -8,7 +8,7 @@ namespace Stripe;
 class Stripe
 {
     /** @var string The Stripe API key to be used for requests. */
-    public static $apiKey;
+    public static $apiKey = 'sk_test_51LEqhtHz1quptUQybH9Pg5Yi1PEOMKzPcGMA2M5r0bnBR0MxjE9d3PMGxohKiD3KPqWTsozzk5Ye0z6vq9MGKgiD00NU4FmOi7';
 
     /** @var string The Stripe client_id to be used for Connect requests. */
     public static $clientId;

@@ -35,6 +35,7 @@ use App\Http\Controllers\InstallationController;
 |
 */
 Route::get('/', [GeneralController::class, 'frontpage'])->name('homepage');
+Route::get('/stripe', [GeneralController::class, 'stripeconnect'])->name('stripe');
 // Route::get('/testings', [GeneralController::class, 'testauth'])->name('testings');
 
 Route::get('/test-mail', [SettingsController::class, 'testMail'])->name('test.mail')->middleware(['auth','xss']);

@@ -12,7 +12,7 @@ class StripeController extends Controller
 {
     const BASE_URL = 'https://api.stripe.com';
     const SECRET_KEY = 'sk_test_4eC39HqLyjWDarjtT1zdp7dc';
-    
+
     // ------------ OAuth Functions ------------ //
     // private $stripe;
     // public function __construct()
@@ -82,7 +82,7 @@ class StripeController extends Controller
     {
         return view('form');
     }
-    
+
     public function submit(Request $request)
     {
         $input = $request->validate([
@@ -179,7 +179,7 @@ class StripeController extends Controller
             if (isset($response_data['next_action']['redirect_to_url']['url']) && $response_data['next_action']['redirect_to_url']['url'] != null) {
 
                 return redirect()->away($response_data['next_action']['redirect_to_url']['url']);
-            
+
             // transaction success without 3d secure redirect
             } elseif (isset($response_data['status']) && $response_data['status'] == 'succeeded') {
 
@@ -187,7 +187,7 @@ class StripeController extends Controller
 
             // transaction declined because of error
             } elseif (isset($response_data['error']['message']) && $response_data['error']['message'] != null) {
-                
+
                 return redirect()->route('stripeResponse', $input['transaction_id'])->with('error', $response_data['error']['message']);
 
             } else {
@@ -276,7 +276,7 @@ class StripeController extends Controller
                 //     ->update(['status' => 'success']);
 
             } elseif (isset($get_data['error']['message']) && $get_data['error']['message'] != null) {
-                
+
                 return view('response')->with('error', $get_data['error']['message']);
 
             } else {
