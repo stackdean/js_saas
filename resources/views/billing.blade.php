@@ -1409,9 +1409,11 @@
                                                 xml:space="preserve">
                                                 <path d="M1.5,0L0,1.5L6.5,8L0,14.5L1.5,16l8-8L1.5,0z"></path>
                                             </svg></i></a>
-                                            <a class="button button-small button-transparent js-a11y-bound" href="{{url('stripe')}}">Connect With Stripe
-                                            </a>
-                                            @if(isset($clientMSG)) <p>{{$clientMSG}}</p> @endif
+                                            @if(Auth::user())
+                                                <a class="button button-small button-transparent js-a11y-bound" href="{{url('stripe')}}">Connect With Stripe
+                                                </a>
+                                                @if(isset($clientMSG)) <p>{{$clientMSG}}</p> @endif
+                                            @endif
                                 </div>
                             </div>
                         </div>
