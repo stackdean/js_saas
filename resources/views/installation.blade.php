@@ -891,6 +891,16 @@
                         aria-label="Account"><span class="letter">U</span><span
                             class="name">{{Auth::user()->name}}</span>
                     </a>
+                    
+                    <a href="{{ route('logout') }}"
+                        onclick="event.preventDefault();document.getElementById('logout-form').submit();"
+                        class="action button button-small button-gray js-a11y-bound">
+                        <i class="ti ti-power"></i>
+                        <span>{{ __('Logout') }}</span>
+                    </a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
                     @else
                     <a href="{{url('login')}}" class="action profile flex flex-inline flex-nowrap"
                         aria-label="login"><span class="letter">L</span><span class="name">Login</span>

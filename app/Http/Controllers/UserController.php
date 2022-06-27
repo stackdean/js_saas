@@ -166,6 +166,20 @@ class UserController extends Controller
             ->with('success',  __('Profile update successfully'));
     }
 
+    public function subscribe(Request $request)
+    {
+        $user = User::find(Auth::user()->id);
+        $user->package_id = $request->package_id;
+        if($request->package_id == Null){
+            $user->subscription_date = Null;
+        }elseif($request->package_id != Null && $user->package_id == Null || $request->package_id != Null && $user->subscription_date == Null){
+            $user->subscription_date = Carbon::now();
+        }
+        $user->save();
+        return redirect()->route('homepage')
+            ->with('success',  __('Service Subscribed successfully.'));
+    }
+
     public function destroy($id)
     {
             if ($id != 1) {

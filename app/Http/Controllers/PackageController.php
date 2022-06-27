@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
+use App\Models\User;
 use App\Models\Package;
-use App\Http\Controllers\Controller;
-use App\DataTables\PackagesDataTable;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use App\DataTables\PackagesDataTable;
 
 class PackageController extends Controller
 {
@@ -49,6 +52,7 @@ class PackageController extends Controller
         $package->duration = $request->duration;
         $package->fees = $request->fees;
         $package->description = $request->description;
+        $package->payment_url = $request->payment_url;
         $package->save();
 
         return redirect()->route('packages.index')
@@ -99,6 +103,7 @@ class PackageController extends Controller
         $package->duration = $request->duration;
         $package->fees = $request->fees;
         $package->description = $request->description;
+        $package->payment_url = $request->payment_url;
         $package->save();
         return redirect()->route('packages.index')
             ->with('success',  __('Package Edited successfully.'));

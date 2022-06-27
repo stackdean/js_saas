@@ -79,6 +79,19 @@
                         <div class=" row">
                             <div class="col-lg-12">
                                 <div class="form-group">
+                                    <label for="payment_url" class="form-label">{{ __('Payment Link') }}</label>
+                                    <input type="text" name="payment_url" class="form-control" id="payment_url"
+                                        placeholder="{{ __('Payment Link') }}"
+                                        value="@if(isset($single) && ($single->payment_url)){{$single->payment_url}}@endif"
+                                        required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class=" row">
+                            <div class="col-lg-12">
+                                <div class="form-group">
                                     <label for="description" class="form-label">{{ __('Description') }}</label>
                                     <textarea name="description" class="form-control" id="description"
                                         required>@if(isset($single->description)){{old('description',$single->description) }}@else{{old('description')}}@endif</textarea>

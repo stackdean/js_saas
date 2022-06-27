@@ -890,6 +890,15 @@
                         aria-label="Account"><span class="letter">{{Str::limit(Auth::user()->name,1,'')}}</span><span
                             class="name">{{Auth::user()->name}}</span>
                     </a>
+                    <a href="{{ route('logout') }}"
+                        onclick="event.preventDefault();document.getElementById('logout-form').submit();"
+                        class="action button button-small button-gray js-a11y-bound">
+                        <i class="ti ti-power"></i>
+                        <span>{{ __('Logout') }}</span>
+                    </a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
                     @else
                     <a href="{{url('login')}}" class="action profile flex flex-inline flex-nowrap"
                         aria-label="login"><span class="name">Login</span>
@@ -1485,7 +1494,8 @@
                                         need
                                     </h2>
                                     <p class="text">
-                                        {{ Utility::getsettings('app_name') }} provides a full suite of services to ensure that
+                                        {{ Utility::getsettings('app_name') }} provides a full suite of services to
+                                        ensure that
                                         all of your digital assets are always accessible.
                                     </p>
                                 </div>
@@ -1496,8 +1506,8 @@
                             </div>
                             <ul class="list flex flex-vertical-start">
                                 @foreach ($services as $service )
-                                <li class="service item">
-                                    <h3 class="name flex flex-nowrap flex-horizontal-start">
+                                <li class="service item" style="text-align: center;width:50%">
+                                    <h3 class="name flex flex-nowrap flex-horizontal-center">
                                         <img src="{{ asset('public/site/assets/media-service.svg') }}" alt="Icon"
                                             role="presentation" />
                                         {{$service->title}}
@@ -1505,24 +1515,48 @@
                                     <p class="text text-medium">
                                         {!!$service->description!!}
                                     </p>
+                                    @if(Auth::user() && $service->payment_url)
+                                    <div style="margin-top:20px">
+                                        <a href="{{$service->payment_url}}" class="button">
+                                            Subscribe to Package
+                                            <i class="icon icon-chevron-right" aria-hidden="true" role="presentation">
+                                                <!--?xml version="1.0" encoding="utf-8"?-->
+                                                <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+                                                    xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                                    viewBox="0 0 9.5 16" style="enable-background: new 0 0 9.5 16"
+                                                    xml:space="preserve">
+                                                    <path d="M1.5,0L0,1.5L6.5,8L0,14.5L1.5,16l8-8L1.5,0z"></path>
+                                                </svg>
+                                            </i>
+                                        </a>
+                                    </div>
+                                    @endif
+                                    @if(Auth::user() && !$service->payment_url)
+                                    <div style="margin-top:20px">
+                                        <form method="POST" id='payment-form' enctype="multipart/form-data"
+                                            action="{{ url('subscribe') }}">
+                                            <input type="hidden" name="_method" value="patch">
+                                            @csrf
+                                            <input type="hidden" name="package_id" value="{{$service->id}}">
+
+                                            <a href="{{ url('subscribe') }}" onclick="event.preventDefault();document.getElementById('payment-form').submit();" class="button" type="submit">
+                                                Subscribe to Package
+                                                <i class="icon icon-chevron-right" aria-hidden="true"
+                                                    role="presentation">
+                                                    <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+                                                        xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                                        viewBox="0 0 9.5 16" style="enable-background: new 0 0 9.5 16"
+                                                        xml:space="preserve">
+                                                        <path d="M1.5,0L0,1.5L6.5,8L0,14.5L1.5,16l8-8L1.5,0z"></path>
+                                                    </svg>
+                                                </i>
+                                            </a>
+                                        </form>
+                                    </div>
+                                    @endif
                                 </li>
                                 @endforeach
                             </ul>
-                            <div class="cta">
-                                <a href="{{url('installation')}}" class="button">
-                                    Start a Project
-                                    <i class="icon icon-chevron-right" aria-hidden="true" role="presentation">
-                                        <!--?xml version="1.0" encoding="utf-8"?-->
-                                        <svg version="1.1" id="Layer_1"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                                            viewBox="0 0 9.5 16" style="enable-background: new 0 0 9.5 16"
-                                            xml:space="preserve">
-                                            <path d="M1.5,0L0,1.5L6.5,8L0,14.5L1.5,16l8-8L1.5,0z"></path>
-                                        </svg>
-                                    </i>
-                                </a>
-                            </div>
                         </div>
                     </div>
                     <div class="end flex flex-horizontal-end">
@@ -1538,7 +1572,8 @@
                                                 role="presentation"
                                                 alt="{{ Utility::getsettings('app_name') }} Brings Web Accessibility to National TV" />
                                         </div>
-                                        <span class="headline">{{ Utility::getsettings('app_name') }} Brings Web Accessibility to National
+                                        <span class="headline">{{ Utility::getsettings('app_name') }} Brings Web
+                                            Accessibility to National
                                             TV</span><span class="text-button text-button-medium">
                                             Read more
                                             <i class="icon icon-chevron-right" aria-hidden="true" role="presentation">
@@ -1558,7 +1593,8 @@
                                             <img src="{{ asset('public/site/assets/newyork.jpg') }}" role="presentation"
                                                 alt="{{ Utility::getsettings('app_name') }} opens new headquarters in New York City with plans to more than double in size" />
                                         </div>
-                                        <span class="headline">{{ Utility::getsettings('app_name') }} opens new headquarters in New York City with
+                                        <span class="headline">{{ Utility::getsettings('app_name') }} opens new
+                                            headquarters in New York City with
                                             plans to more than double in size</span><span
                                             class="text-button text-button-medium">
                                             Read more
@@ -1579,7 +1615,8 @@
                                             <img src="{{ asset('public/site/assets/routier.jpg') }}" role="presentation"
                                                 alt="{{ Utility::getsettings('app_name') }} acquires leading service company and platform Routier" />
                                         </div>
-                                        <span class="headline">{{ Utility::getsettings('app_name') }} acquires leading service company and platform
+                                        <span class="headline">{{ Utility::getsettings('app_name') }} acquires leading
+                                            service company and platform
                                             Routier</span><span class="text-button text-button-medium">
                                             Read more
                                             <i class="icon icon-chevron-right" aria-hidden="true" role="presentation">

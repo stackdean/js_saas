@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Package;
-use Facade\FlareClient\Http\Client;
-use GuzzleHttp\Psr7\Response;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Maatwebsite\Excel\Concerns\ToArray;
 use Stripe\OAuth;
 use Stripe\Stripe;
+use App\Models\User;
+use App\Models\Package;
 use Stripe\StripeClient;
+use Illuminate\Http\Request;
+use GuzzleHttp\Psr7\Response;
+use Facade\FlareClient\Http\Client;
+use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Concerns\ToArray;
 
 class GeneralController extends Controller
 {
@@ -43,7 +44,7 @@ class GeneralController extends Controller
         CURLOPT_CUSTOMREQUEST => 'POST',
         CURLOPT_POSTFIELDS => 'type=express&email='.$user->email.'&country=US',
         CURLOPT_HTTPHEADER => array(
-            'Authorization: Bearer '.self::SECRET_KEY,
+            'Authorization: Bearer '.Stripe::$apiKey,
             'Content-Type: application/x-www-form-urlencoded'
         ),
         ));
@@ -64,7 +65,7 @@ class GeneralController extends Controller
           CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
           CURLOPT_CUSTOMREQUEST => 'GET',
           CURLOPT_HTTPHEADER => array(
-            'Authorization: Bearer sk_test_51LEqhtHz1quptUQybH9Pg5Yi1PEOMKzPcGMA2M5r0bnBR0MxjE9d3PMGxohKiD3KPqWTsozzk5Ye0z6vq9MGKgiD00NU4FmOi7'
+            'Authorization: Bearer '.Stripe::$apiKey
           ),
         ));
 
@@ -81,7 +82,7 @@ class GeneralController extends Controller
         CURLOPT_CUSTOMREQUEST => 'POST',
         CURLOPT_POSTFIELDS => 'account='.$account->id.'&type=account_onboarding&return_url=http%3A%2F%2Flocalhost%2Fjs_saas%2F&refresh_url=http%3A%2F%2Flocalhost%2Fjs_saas%2F',
         CURLOPT_HTTPHEADER => array(
-            'Authorization: Bearer sk_test_51LEqhtHz1quptUQybH9Pg5Yi1PEOMKzPcGMA2M5r0bnBR0MxjE9d3PMGxohKiD3KPqWTsozzk5Ye0z6vq9MGKgiD00NU4FmOi7',
+            'Authorization: Bearer '.Stripe::$apiKey,
             'Content-Type: application/x-www-form-urlencoded'
         ),
         ));
@@ -95,8 +96,15 @@ class GeneralController extends Controller
         }
 
         if(isset($myResponse->url)){
+
+            $user = User::find(Auth::user()->id);
+
             $query['clientURL'] = json_decode($response)->url;
-            return redirect($query['clientURL']);
+            // dd($query);
+            $user->stripe_id = $account->id;
+            $user->save();
+
+            return redirect('billing');
         }
 
         // dd($clientURL);

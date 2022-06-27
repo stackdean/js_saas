@@ -1398,7 +1398,7 @@
                             </div>
                             <div class="buttons flex flex-inline flex-horizontal-end">
                                 <div class="cta">
-                                    <a class="button button-small button-transparent js-a11y-bound"
+                                    {{-- <a class="button button-small button-transparent js-a11y-bound"
                                         href="{{url('billing')}}#popup-billing" role="button">
                                         Add Billing Method
                                         <i class="icon icon-chevron-right" aria-hidden="true" role="presentation">
@@ -1408,16 +1408,21 @@
                                                 viewBox="0 0 9.5 16" style="enable-background: new 0 0 9.5 16"
                                                 xml:space="preserve">
                                                 <path d="M1.5,0L0,1.5L6.5,8L0,14.5L1.5,16l8-8L1.5,0z"></path>
-                                            </svg></i></a>
+                                            </svg></i></a> --}}
                                             @if(Auth::user())
+                                                @if(isset(Auth::user()->stripe_id))
+                                                <a class="button button-small button-transparent js-a11y-bound" href="">Account Connected to Stripe
+                                                </a>
+                                                @else
                                                 <a class="button button-small button-transparent js-a11y-bound" href="{{url('stripe')}}">Connect With Stripe
                                                 </a>
+                                                @endif
                                                 @if(isset($clientMSG)) <p>{{$clientMSG}}</p> @endif
                                             @endif
                                 </div>
                             </div>
                         </div>
-                        <div class="billing-methods flex flex-vertical-stretch">
+                        {{-- <div class="billing-methods flex flex-vertical-stretch">
                             <div class="billing-block">
                                 <p class="text">
                                     You don't have billing methods yet, but you can add one
@@ -1428,7 +1433,7 @@
                         <p class="text">
                             You can add as many billing methods as you need. This allows you
                             to be billed on various credit cards for different websites.
-                        </p>
+                        </p> --}}
                     </div>
                 </div>
                 <div class="section">
@@ -1444,7 +1449,7 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>For</th>
+                                    {{-- <th>For</th> --}}
                                     <th>Status</th>
                                     <th>Total</th>
                                     <th>Transaction ID</th>
@@ -1453,11 +1458,22 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @foreach ($myData as $key => $payment)
+
                                 <tr>
+                                    <td>{{$key+1}}</td>
+                                    {{-- <td></td> --}}
+                                    <td>{{$payment->status}}</td>
+                                    <td>{{$payment->amount}}</td>
+                                    <td>{{$payment->balance_transaction}}</td>
                                     <td>
-                                        <p class="text">No payment history to show yet...</p>
+                                        <a class="button button-small button-transparent js-a11y-bound" href="{{$payment->receipt_url}}">Receipt
+                                        </a>
+                                    </td>
+                                    <td>{{date('d-m-Y', $payment->created)}}
                                     </td>
                                 </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

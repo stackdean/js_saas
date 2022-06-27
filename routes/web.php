@@ -50,6 +50,7 @@ Auth::routes();
 Route::get('/installation', [InstallationController::class, 'index'])->name('installation');
 Route::get('/account', [AccountController::class, 'index'])->name('account');
 Route::get('/billing', [BillingController::class, 'index'])->name('billing');
+Route::get('/charges', [BillingController::class, 'charges'])->name('charges');
 Route::get('/audit', [AuditController::class, 'index'])->name('audit');
 Route::get('/partner', [PartnerController::class, 'index'])->name('partner');
 
@@ -74,6 +75,7 @@ Route::group(['middleware' => ['auth', 'xss']], function () {
     Route::resource('formvalues', '\App\Http\Controllers\FormValueController');
     Route::patch('/users/{id}/edit',[UserController::class,'update']);
     Route::patch('/packages/{id}/edit',[PackageController::class,'update']);
+    Route::patch('subscribe',[UserController::class,'subscribe']);
 
 });
 Route::resource('forms', '\App\Http\Controllers\FormController')->middleware(['auth','xss']);
